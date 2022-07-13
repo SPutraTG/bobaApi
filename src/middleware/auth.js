@@ -1,10 +1,10 @@
-let connection = require("../config/db");
+let config = require("../config/db");
 let mysql = require("mysql");
 let md5 = require("MD5");
 let jwt = require("jsonwebtoken");
-let config = require("../config/secret");
+// let secret = require("../config/secret");
 let ip = require("ip");
-const { response } = require("express");
+let response = require('../../res');
 
 exports.registrasi = function(req, res) {
     let post = {
@@ -15,12 +15,12 @@ exports.registrasi = function(req, res) {
         tanggal_daftar: new Date(),
     }
 
-    let query = "SELECT email FROM ?? WHERE ??";
+    let query = "SELECT email FROM ?? WHERE ??=?";
     let table = ["user", "email", post.email]
 
     query = mysql.format(query, table);
 
-    connection.query(query, function(error, rows) {
+    config.query(query, function(error, rows) {
         if(error){
             console.log(error);
         } else {
@@ -28,7 +28,7 @@ exports.registrasi = function(req, res) {
                 let query = "INSERT INTO ?? SET ?";
                 let table = ["user"];
                 query = mysql.format(query, table);
-                connection.query(query, post, function(error, rows){
+                config.query(query, post, function(error, rows){
                     if(error){
                         console.log(error);
                     } else {
@@ -36,7 +36,7 @@ exports.registrasi = function(req, res) {
                     }
                 });
             } else {
-                response.ok("Email sudah terdaftar!");
+                response.ok("Email sudah terdaftar!", res);
             }
             }
         })
