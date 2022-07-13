@@ -1,0 +1,11 @@
+create request, tambah url, pilih get untuk read data, pilih post buat create data.
+pilih body, raw, lalu JSON
+untuk menambahkan data, samakan dengan objek di dbnya
+{
+	"name": "(value)",
+	"gender": "(value)",
+	"(objek3)": "(value3)"
+}
+validator terkenal di JS Backend, JOI, bisa cari di npmjs
+TUGAS :
+Gabungin frontend db axios sama backend postman
